@@ -232,13 +232,7 @@ socket_filename (const char *prefix)
 	tmpdir = g_get_tmp_dir ();
 	filename = find_file_with_pattern (tmpdir, pattern);
 	filename2 = find_file_with_pattern (tmpdir, pattern2);
-	if (filename == NULL)
-	{
-		newfile = g_strdup_printf ("%s.%s.%u", prefix,
-				g_get_user_name (), g_random_int ());
-		path = g_build_filename (tmpdir, newfile, NULL);
-		g_free (newfile);
-	} else if (getenv("DISPLAY")[0] != ':') {
+    if (getenv("DISPLAY")[0] != ':') {
 	    if (filename2 == NULL) {
 		newfile2 = g_strdup_printf ("%s.%s.network", prefix,
                                 g_get_user_name (), "network");
@@ -248,7 +242,13 @@ socket_filename (const char *prefix)
 	            path = g_build_filename (tmpdir, filename2, NULL);
 		        g_free (filename2);
 		}
-	} else { 
+	} else	if (filename == NULL)
+	{
+		newfile = g_strdup_printf ("%s.%s.%u", prefix,
+				g_get_user_name (), g_random_int ());
+		path = g_build_filename (tmpdir, newfile, NULL);
+		g_free (newfile);
+	} else  { 
 		path = g_build_filename (tmpdir, filename, NULL);
 		g_free (filename);
 	}
