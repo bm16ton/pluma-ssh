@@ -232,7 +232,7 @@ socket_filename (const char *prefix)
 	tmpdir = g_get_tmp_dir ();
 	filename = find_file_with_pattern (tmpdir, pattern);
 	filename2 = find_file_with_pattern (tmpdir, pattern2);
-    if (getenv("DISPLAY")[0] != ':') {
+    if (getenv("DISPLAY")[0] == ':') {
 	    if (filename2 == NULL) {
 		newfile2 = g_strdup_printf ("%s.%s.network", prefix,
                                 g_get_user_name (), "network");
